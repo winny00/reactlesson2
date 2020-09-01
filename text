@@ -1,0 +1,78 @@
+目标
+    1.了解组件化概念，能设计并实现自己需要的组件
+    2.掌握使用跨层级通信-Content（新API在v>16.3）
+    3.组件复合-Composition
+    4.高阶组件-HOC
+    5.Hooks (>=16.8)
+
+要点
+    1.运用context上下文，用于跨层级通信
+    2.运用组件复合-Composition
+    3.运用高阶组件-HOC
+    4.Hooks使用
+
+起步
+    组件化优点
+        1.增强代码重用性，提高开发效率
+        2.简化调试步骤，提升整个项目的可维护性
+        3.便于协同开发
+        4.注意点：降低耦合性
+
+快速开始
+npx create-react-app lesson2
+cd my-app
+npm start
+
+
+组件跨层级通信-Context
+
+React中使用Context实现祖代组件向后代组件跨层级传值。Vue中的provide & inject来源于Context
+在Context模式下有两个角色：
+    .Provider:外层提供数据的组件
+    .Consumer:内层获取数据的组件
+---使用Context
+    创建Context=>获取Provider和Consumer  =>  Provider提供值 => Consumer消费值
+    范例:模拟redux存放全局状态，在组件间共享
+在React的官方文档中，Context被归类为高级部分(Advanced),属于React的高级API，但官方并不建议在稳定版的App中使用Context.
+不过，这并非意味着我们不需要关注Context.事实上，很多优秀的React组件都通过Context来完成自己的功能，
+比如react-redux的<Provider /> ,就是通过Context提供一个全局态的store,路由组件react-router通过Context管理路由状态等等。
+在React组件开发中，如果用好Context,可以让你的组件变得强大，而且灵活。
+
+
+高阶组件-HOC
+    为了提高组件复用率，可测试性，就要保证组件功能单一性，但是若要满足复杂功能需求就要扩展功能单一的组件，在React里就有了HOC(Higher-Order Components)的概念，
+    定义：是一个函数，它接收一个组件并返回另一个组件。
+
+
+
+装饰器写法
+高阶组件本身是对装饰器模式的应用，自然可以利用ES7中出现的装饰器语法来更优雅的书写代码。
+cra项目配置装饰器方法:
+    1.npm run eject(如果是直接down下来的代码，并且有改动，一般需要你先commit本地代码，如果不是down，则将项目配置成git)
+    2.package.json (如果不会配置，直接看提供的package.json代码)
+    3.安装装饰器插件： npm install @babel/plugin-proposal-decorators --save-dev
+        提示
+    cra项目中默认不支持js代码使用装饰器语法，可修改后缀名为tsx则可以直接支持，cra版本高于2.1.0
+
+Hooks
+    hook是react16.8一个新增项，它可以让你在不编写class的情况下使用state以及其它的React特性。
+    特点：
+        1.使你在无需修改组件的结构情况下复用状诚逻辑
+        2.可将组件中相互关联的部分拆分成更小的函数，复杂组件将变得更容易理解
+        3.更简洁、更易理解的代码
+    状态勾子State Hooks
+        1.创建一个HookPage.js 
+
+    副作用钩子 Effect Hook总结：
+        useEffect给函数组件增加了执行副作用操作的能力
+        副作用(Side Effect)是指一个function做了和本身运算返回值无关的事，
+        比如:修改了全局变量、修改了传入参数、甚至是console.log()，所以ajax操作，修改Dom都是算作副用。
+        React保证了每次运行effect的同时，Dom都已经更新完毕
+
+useReducer
+    reducer就是一个纯函数，接收旧的state和action,返回新的state.
+    useReducer是useState的可选项，常用于组件有复杂状态逻辑时，类似于redux中reducer概念
+
+
+useContext
+    它是用于在快速在函数组件中导入上下文。
